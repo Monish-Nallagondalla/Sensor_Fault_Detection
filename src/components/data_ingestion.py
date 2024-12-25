@@ -12,5 +12,18 @@ from src.logger import logging
 
 @dataclass
 class DataIngestionConfig:
-    train_data_path : str = os.path.join ('artufacts", "train.csv')
+    train_data_path : str = os.path.join ('artifacts", "train.csv')
+    raw_data_path : str = os.path.join ('artifacts','data.csv')
+    test_data_path : str = os.path.join('artifacts','test.csv')
+
+class DataIngestion:
+    def __init__(self):
+        self.ingestion_config = DataIngestionConfig()
     
+    def initiate_data_ingestion(self):
+        logging.info("Entered Inititaion_data_ingestion method of DataIngestion Class")
+
+    try:
+        df : pd.DataFrame = export_collection_as_dataframe(
+            db_name =
+        )
