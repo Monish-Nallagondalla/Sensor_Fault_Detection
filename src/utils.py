@@ -16,4 +16,6 @@ from src.exception import CustomException
 
 def export_collection_as_dataframe(collection_name,db_name):
     try :
-        mongo_client = MongoClient(os.getenv("M"))
+        mongo_client = MongoClient(os.getenv("MONGO_DB_URL"))
+
+        
