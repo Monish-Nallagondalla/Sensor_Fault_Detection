@@ -19,3 +19,18 @@ def export_collection_as_dataframe(collection_name,db_name):
         mongo_client = MongoClient(os.getenv("Mmongodb+srv://nsmonish:Monish1996@sensor-fault-detection.1il9p.mongodb.net/?retryWrites=true&w=majority&appName=Sensor-fault-detection"))
 
         collection = mongo_client[db_name][collection_name]
+
+        df =pd.DataFrame(list(collection.find()))
+
+
+        if "_id" in df.columns.to_list():
+            df = df.drop(columns=['_id'],axis=1) 
+
+            df.replace({'na':np.nan},inplace=True)
+
+            return df
+    except Exception as e:
+        raise CustomException(e,sys)
+    
+'''By default, MongoDB includes an _id field in every document. This line checks if _id exists in the DataFrame's columns and drops it (if it exists), as it's often not required for analysis.'''
+    
