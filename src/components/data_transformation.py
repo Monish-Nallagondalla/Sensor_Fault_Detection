@@ -42,3 +42,53 @@ class Datatransformation:
         except Exception as e:
             raise CustomException(e,sys)
         
+
+    def initiate_data_transformation(self,train_path,test_path):
+        try:
+
+            train_df = pd.read_csv(train_path)
+
+            test_df = pd.read_csv(test_path)
+
+            preprocessor = self.get_data_transformer_object()
+
+            target_column_name = 'class'
+            target_column_mapping = {'+1':0,'-1':1}
+
+            #training dataframe 
+            input_feature_train_df = train_df.drop(columns=[target_column_name],axis=1)   
+            target_feature_train_df = train_df[target_column_name].map(target_column_mapping)
+
+            #testing dataframe
+            input_feature_test_df = test_df.drop(columns=[target_column_name],axis=1)
+            target_feature_test_df = test_df[target_column_name].map(target_column_mapping)
+
+            transformed_input_train_feature = preprocessor.fit_transform(input_feature_train_df)
+            transformed_input_test_feature = preprocessor.transform(input_feature_test_df)
+
+            smt = SMOTETomek(sampling_strategy='minority')
+
+            input_feature_train_final , target_feature_train_final = smt.fit_resample(
+                transformed_input_train_feature,target_feature_train_df
+            )
+
+            input_feature_test_final, target_feature_test_final = smt.fit_resample(
+                transformed_input_test_feature,target_feature_test_df
+            )
+
+            train_arr = np.c_[input_feature_train_final,np.array(target_feature_train_final)]
+            test_arr = np.c_[input_feature_test_final,np.array(target_feature_test_final)]
+
+            save_object(self.data_transformation_config.preprocessor_obj_file_path,obj=preprocessor)
+
+            return(
+                train_arr,
+                test_arr,
+                self.data_transformation_config.preprocessor_obj_file_path
+            )
+
+
+
+        except Exception as e:
+            raise CustomException(e, sys)
+
