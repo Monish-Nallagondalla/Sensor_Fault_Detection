@@ -34,3 +34,26 @@ def export_collection_as_dataframe(collection_name,db_name):
     
 '''By default, MongoDB includes an _id field in every document. This line checks if _id exists in the DataFrame's columns and drops it (if it exists), as it's often not required for analysis.'''
     
+
+
+def save_object(file_path,obj):
+    try:
+        dir_path = os.path.dirname(file_path)
+
+        os.makedirs(dir_path,exist_ok=True)
+
+        with open(file_path,'wb') as file_obj:
+            dill.dump(obj,file_obj)
+
+    except Exception as e:
+        raise CustomException (e,sys)
+
+def load_object(file_path):
+    try:
+        with open(file_path,'rb') as file_obj:
+            return dill.load(file_obj)
+        
+    except Exception as e:
+        raise CustomException(e,sys)
+
+def u

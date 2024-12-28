@@ -36,7 +36,7 @@ class Datatransformation:
                 steps=[nan_replacement_step,imputer_step,
                        scaler_step]
             )
-
+            logging.info("Get data transformer objected completed")
             return preprocessor
         
         except Exception as e:
@@ -55,6 +55,7 @@ class Datatransformation:
             target_column_name = 'class'
             target_column_mapping = {'+1':0,'-1':1}
 
+            logging.info("training and test split to be initiated ")
             #training dataframe 
             input_feature_train_df = train_df.drop(columns=[target_column_name],axis=1)   
             target_feature_train_df = train_df[target_column_name].map(target_column_mapping)
@@ -86,9 +87,10 @@ class Datatransformation:
                 test_arr,
                 self.data_transformation_config.preprocessor_obj_file_path
             )
-
+            logging.info('Data transdormation initiated and completed ')
 
 
         except Exception as e:
             raise CustomException(e, sys)
 
+            
