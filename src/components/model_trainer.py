@@ -30,6 +30,7 @@ class CustomModel:
     def __str__(self):
         return f"{type(self.trained_model_object).__name__}()"
     
+    
 
 class ModelTrainer:
     def __init__(self):
