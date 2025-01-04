@@ -58,3 +58,52 @@ class ModelTrainer:
             }
 
             logging.info(f"Extracting model config file path")
+
+            model_report : dict = evaluate_models(X=x_train,y=y_train, models=models)
+
+            best_model_score = max(sorted(model_report.values()))
+
+            best_model_name = list(model_report.keys())[
+                list(model_report.values()).index(best_model_score)
+
+            ]
+
+            best_model = models[best_model_name]
+
+            if best_model_name<0.6:
+                raise Exception('No best model found')
+
+            logging.info(f"Best found model on both training and testing dataset")
+
+            preprocessing_obj = load_object(file_path = preprocessor_path)
+
+            custom_model = CustomModel (
+                preprocessor_object = preprocessing_obj,
+                trained_model_object = best_model,
+
+            )
+
+            logging.info(
+                f"Saving model at path: {self.model_trainer_config.trained_model_file_path}"
+            )
+
+            save_object(
+                file_path=self.model_trainer_config.tained_model_file_path, 
+                obj=custom_model,
+            )
+
+
+            predicted = best_model.predict(x_test)
+
+            r2_square = r2_score(y_test, predicted)
+
+            upload_file(
+                from_filename=self.model_trainer_config.trained_model_file_path,
+                to_filename="model.pkl",
+                bucket_name=AWS_S3_BUCKET_NAME,
+            )
+
+            return r2_square
+
+        except Exception as e:
+            raise CustomException(e, sys)
