@@ -60,9 +60,9 @@ class PredictionPipeline:
     def get_predicted_dataframe(Self,input_dataframe_path:pd.DataFrame):
 
         try:
-            pre  
+            prediction_column_name : str = "class"
 
 
-            
+
 
 
