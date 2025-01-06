@@ -18,9 +18,9 @@ class PredictionFileDetail:
     prediction_file_path : str = os.path.join(prediction_output_dirname,prediction_file_name)
 
 class PredictionPipeline:
-    def __init__(self,request:request):
+    def __init__(self, request: request):
 
-        self.request = request 
+        self.request = request
         self.prediction_file_detail = PredictionFileDetail()
 
     def save_input_files(self)-> str:
@@ -57,12 +57,36 @@ class PredictionPipeline:
             raise CustomException(e,sys)
         
 
-    def get_predicted_dataframe(Self,input_dataframe_path:pd.DataFrame):
+    def get_predicted_dataframe(self,input_dataframe_path:pd.DataFrame):
 
         try:
             prediction_column_name : str = "class"
+            input_dataframe: pd.DataFrame = pd.read_csv(input_dataframe_path)
+
+            predictions = self.predict(input_dataframe)
+            input_dataframe[prediction_column_name] = [pred for pred in predictions]
+
+            target_column_mapping = {0:'neg',1:'pos'}
+            input_dataframe[prediction_column_name] = input_dataframe[prediction_column_name].map(target_column_mapping)
+            
+            os.makedirs( self.prediction_file_detail.prediction_output_dirname, exist_ok= True)
+            input_dataframe.to_csv(self.prediction_file_detail.prediction_file_path, index= False)
+            logging.info("predictions completed. ")
 
 
+
+        except Exception as e:
+            raise CustomException(e, sys) from e
+
+    def run_pipeline(self):
+        try:
+            input_csv_path = self.save_input_files()
+            self.get_predicted_dataframe(input_csv_path)
+
+            return self.prediction_file_detail
+        
+        except Exception as e:
+            raise CustomException (e,sys)
 
 
 
