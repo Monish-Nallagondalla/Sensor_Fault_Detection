@@ -12,3 +12,23 @@ app = Flask(__name__)
 def home():
     return jsonify('home')
 
+@app.route('/train')
+def train_route():
+    try:
+        train_pipeline = TrainPipeline()
+        train_pipeline.run_pipeline()
+
+        return "Training Complete"
+    except Exception as e:
+        raise CustomException(e,sys)
+    
+@app.route('/upload',methods = ['POST','GET'])
+def upload():
+
+    try:
+
+        if request.method == 'POST':
+            prediction_pipeline = PredictionPipeline(request)
+            prediction_file_detail = prediction_pipeline.run_pipeline()
+
+            lg.info("prediction completed. Downloading prediction file.")
