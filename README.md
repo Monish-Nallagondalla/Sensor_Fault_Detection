@@ -1,9 +1,9 @@
-# Diamond Price Prediction
+# Sensor Fault Detection
 
 ![Python](https://img.shields.io/badge/Language-Python-blue) ![MIT License](https://img.shields.io/badge/License-MIT-green)
 
 ## 1. 📜 Description
-This project predicts diamond prices using machine learning models trained on a dataset containing various attributes of diamonds such as carat, cut, color, clarity, and other features. The goal is to predict the price of a diamond based on these features to aid buyers, sellers, and researchers in the diamond industry.
+This project focuses on detecting faults in sensor data collected from industrial equipment. Using machine learning techniques, the project identifies faulty sensor readings and provides insights into sensor health, allowing for proactive maintenance and improved operational efficiency.
 
 ## 2. 🏗️ Project Structure
 The repository is organized into logical modules for clarity and scalability:
@@ -11,11 +11,11 @@ The repository is organized into logical modules for clarity and scalability:
 ### Core Components
 - **`config/`**: Configuration files for model settings and data schema.
 - **`src/`**: Source code for the application, including components for data handling and pipelines.
-- **`notebooks/`**: Jupyter notebooks for exploration and modeling.
+- **`templates/`**: HTML templates for the web app.
 
 ### Main Files
 - **`application.py`**: Main application script to run the project.
-- **`diamonds_data.csv`**: Dataset for training and evaluation.
+- **`sensor_data.csv`**: Dataset for training and evaluation.
 - **`requirements.txt`**: Python dependencies.
 - **`setup.py`**: Setup script for package installation.
 - **`LICENSE`**: Licensing information.
@@ -24,14 +24,15 @@ The repository is organized into logical modules for clarity and scalability:
 ### Detailed Project Structure:
 
 ```plaintext
-Diamond_price_prediction/
+Sensor_fault_detection/
 │
 ├── config/               # Configuration files
 │   ├── model.yaml        # Model hyperparameters and settings
 │   └── schema.yaml       # Data schema specifications
 │
 ├── notebooks/            # Jupyter notebooks for exploration and modeling
-│   ├── diamondPrice.ipynb
+│   ├── sensorFaultDetection.ipynb
+│   ├── sensor_data_analysis.ipynb
 │   └── eda.ipynb
 │
 ├── src/                  # Source code for the application
@@ -48,38 +49,41 @@ Diamond_price_prediction/
 │   ├── logger.py         # Logging utility
 │   └── utils.py          # Helper functions
 │
+├── templates/            # HTML templates for the web app
+│   ├── index.html        # Main web page
+│   └── upload_file.html  # File upload interface
+│
 ├── application.py        # Main application script
-├── diamonds_data.csv     # Dataset for training and evaluation
+├── sensor_data.csv       # Dataset for training and evaluation
 ├── LICENSE               # Licensing information
 ├── requirements.txt      # Python dependencies
 ├── setup.py              # Setup script for package installation
 └── README.md             # Documentation (this file)
 ```
 
-## 3.  📊 Dataset Overview
-The dataset contains various features of diamonds such as their size, color, clarity, and price.
-
+## 3. 📊 Dataset Overview
+The dataset consists of sensor readings, each tagged with a status indicating whether the sensor is working properly or has faults.  
 Key features:
-- **Carat**: Weight of the diamond.
-- **Cut**: Quality of the cut (Fair, Good, Very Good, Ideal, Excellent).
-- **Color**: Diamond color, from D (best) to J (worst).
-- **Clarity**: Diamond clarity rating (I1, SI1, SI2, VS1, VS2, VVS1, VVS2, IF).
-- **Depth**: Depth percentage.
-- **Table**: Table percentage.
-- **Price**: Target variable, representing the price of the diamond.
+- **Sensor ID**: Unique identifier for each sensor.
+- **Sensor Type**: The type of sensor used (e.g., temperature, pressure).
+- **Reading Value**: The sensor's output at the given time.
+- **Timestamp**: Date and time the reading was recorded.
+- **Fault Status**: Binary target variable indicating whether a fault is present (1) or not (0).
 
 Sample data:
-| Carat | Cut    | Color | Clarity | Depth | Table | Price |
-|-------|--------|-------|---------|-------|-------|-------|
-| 0.23  | Ideal  | E     | SI2     | 61.5  | 55    | 326   |
+| Sensor ID | Sensor Type | Reading Value | Timestamp           | Fault Status |
+|-----------|-------------|---------------|---------------------|--------------|
+| 101       | Temperature | 75.5          | 2024-01-10 12:00:00 | 0            |
+| 102       | Pressure    | 2.3           | 2024-01-10 12:05:00 | 1            |
 
-## 4.  🚀 Features
-- **Data Analysis**: Comprehensive exploratory data analysis (EDA) to identify patterns and relationships.
-- **Model Training**: Machine learning pipelines to predict diamond price.
-- **Web Application**: An intuitive interface for data input and predictions.
+## 4. 🚀 Features
+- **Fault Detection**: Machine learning models for identifying sensor faults.
+- **Data Analysis**: In-depth exploratory data analysis (EDA) to understand sensor behavior.
+- **Model Training**: Custom pipelines for training fault detection models.
+- **Web Application**: A user-friendly interface to upload sensor data and receive predictions.
 - **Customizable Configurations**: YAML-based configurations for models and data schema.
 
-## 5.  ⚙️ Installation
+## 5. ⚙️ Installation
 ### Prerequisites
 - Python 3.8 or later
 - Libraries specified in `requirements.txt`
@@ -87,8 +91,8 @@ Sample data:
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Monish-Nallagondalla/Diamond_price_prediction.git
-   cd Diamond_price_prediction
+   git clone https://github.com/Monish-Nallagondalla/Sensor_fault_detection.git
+   cd Sensor_fault_detection
    ```
 2. Install dependencies:
    ```bash
@@ -109,8 +113,8 @@ Sample data:
 2. Open your browser and navigate to `http://localhost:5000`.
 
 ### Notebooks
-- Analyze data trends in `notebooks/eda.ipynb`.
-- Train and evaluate models using `notebooks/diamondPrice.ipynb`.
+- Explore sensor data trends in `notebooks/sensor_data_analysis.ipynb`.
+- Train and evaluate fault detection models using `notebooks/sensorFaultDetection.ipynb`.
 
 ## 7. 🤝 Contributing
 We welcome contributions! Please:
@@ -125,4 +129,5 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 For questions or feedback:
 - **GitHub**: [Monish-Nallagondalla](https://github.com/Monish-Nallagondalla)
 - **Email**: [nsmonish@gmail.com]
-```
+
+---
