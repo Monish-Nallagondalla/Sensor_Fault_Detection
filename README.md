@@ -63,19 +63,24 @@ Sensor_fault_detection/
 ```
 
 ## 3. 📊 Dataset Overview
-The dataset consists of sensor readings, each tagged with a status indicating whether the sensor is working properly or has faults.  
-Key features:
-- **Sensor ID**: Unique identifier for each sensor.
-- **Sensor Type**: The type of sensor used (e.g., temperature, pressure).
-- **Reading Value**: The sensor's output at the given time.
-- **Timestamp**: Date and time the reading was recorded.
-- **Fault Status**: Binary target variable indicating whether a fault is present (1) or not (0).
+The dataset consists of sensor readings from various sensors (Sensor-1, Sensor-2, ..., Sensor-570) along with a final column indicating whether the sensor is classified as "Good" or "Bad".
 
-Sample data:
-| Sensor ID | Sensor Type | Reading Value | Timestamp           | Fault Status |
-|-----------|-------------|---------------|---------------------|--------------|
-| 101       | Temperature | 75.5          | 2024-01-10 12:00:00 | 0            |
-| 102       | Pressure    | 2.3           | 2024-01-10 12:05:00 | 1            |
+| Sensor-1  | Sensor-2  | Sensor-3  | Sensor-4  | ... | Sensor-570 | Good/Bad |
+|-----------|-----------|-----------|-----------|-----|------------|----------|
+| 2968.33   | 2476.58   | 2216.7333 | 1748.0885 | ... | 0.012      | 0        |
+
+(Note: Only a few rows of the actual data are shown. The table is much larger and continues in this pattern.)
+
+### Columns
+- **Sensor-1 to Sensor-570**: Sensor readings that indicate various measurements from each sensor.
+- **Good/Bad**: The classification label for each sensor (Good or Bad).
+
+### Data Type
+The dataset consists of numerical values representing sensor data, and the last column indicates the classification (Good/Bad).
+
+### Dataset Size
+- **Rows**: 570
+- **Columns**: 571 (including the "Good/Bad" column)
 
 ## 4. 🚀 Features
 - **Fault Detection**: Machine learning models for identifying sensor faults.
