@@ -14,8 +14,8 @@ The repository is organized into logical modules for clarity and scalability:
 - **`templates/`**: HTML templates for the web app.
 
 ### Main Files
-- **`application.py`**: Main application script to run the project.
-- **`sensor_data.csv`**: Dataset for training and evaluation.
+- **`app.py`**: Main application script to run the project.
+- **`wafer_23012020_041211.csv`**: Dataset for training and evaluation.
 - **`requirements.txt`**: Python dependencies.
 - **`setup.py`**: Setup script for package installation.
 - **`LICENSE`**: Licensing information.
@@ -26,38 +26,39 @@ The repository is organized into logical modules for clarity and scalability:
 ```plaintext
 Sensor_fault_detection/
 │
-├── config/               # Configuration files
-│   ├── model.yaml        # Model hyperparameters and settings
-│   └── schema.yaml       # Data schema specifications
-│
 ├── notebooks/            # Jupyter notebooks for exploration and modeling
-│   ├── sensorFaultDetection.ipynb
-│   ├── sensor_data_analysis.ipynb
-│   └── eda.ipynb
+│   ├── EDA.ipynb         # Exploratory Data Analysis
+│   ├── upload.ipynb      # Upload data for processing
 │
 ├── src/                  # Source code for the application
+│   ├── __pycache/        # Cached Python files
 │   ├── components/       # Core components for data handling and modeling
 │   │   ├── __init__.py
 │   │   ├── data_ingestion.py
 │   │   ├── data_transformation.py
 │   │   └── model_trainer.py
-│   ├── pipelines/        # Training and prediction pipelines
+│   ├── constant/         # Constants used across the project
+│   │   └── __init__.py
+│   ├── pipeline/         # Training and prediction pipelines
 │   │   ├── __init__.py
-│   │   ├── prediction_pipeline.py
-│   │   └── training_pipeline.py
+│   │   ├── predict_pipeline.py
+│   │   └── train_pipeline.py
 │   ├── exception.py      # Custom error handling
 │   ├── logger.py         # Logging utility
 │   └── utils.py          # Helper functions
 │
-├── templates/            # HTML templates for the web app
-│   ├── index.html        # Main web page
-│   └── upload_file.html  # File upload interface
+├── static/               # Static files for the web app
+│   └── css/              # Stylesheets
 │
-├── application.py        # Main application script
-├── sensor_data.csv       # Dataset for training and evaluation
+├── templates/            # HTML templates for the web app
+│   ├── upload_file.html  # File upload interface
+│
+├── app.py                # Main application script
+├── wafer_23012020_041211.csv # Dataset for training and evaluation
 ├── LICENSE               # Licensing information
 ├── requirements.txt      # Python dependencies
 ├── setup.py              # Setup script for package installation
+├── .gitignore            # Git ignore file
 └── README.md             # Documentation (this file)
 ```
 
@@ -108,13 +109,13 @@ Sample data:
 ### Running the Application
 1. Execute the main application script:
    ```bash
-   python application.py
+   python app.py
    ```
 2. Open your browser and navigate to `http://localhost:5000`.
 
 ### Notebooks
-- Explore sensor data trends in `notebooks/sensor_data_analysis.ipynb`.
-- Train and evaluate fault detection models using `notebooks/sensorFaultDetection.ipynb`.
+- Explore sensor data trends in `notebooks/EDA.ipynb`.
+- Upload data for processing using `notebooks/upload.ipynb`.
 
 ## 7. 🤝 Contributing
 We welcome contributions! Please:
