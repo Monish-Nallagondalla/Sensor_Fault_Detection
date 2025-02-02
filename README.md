@@ -1,4 +1,3 @@
-```markdown
 # Diamond Price Prediction
 
 ![Python](https://img.shields.io/badge/Language-Python-blue) ![MIT License](https://img.shields.io/badge/License-MIT-green)
